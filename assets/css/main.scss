@@ -150,7 +150,8 @@ img {
     @include breakpoint(medium) {
         margin-left: auto;
         margin-right: auto;
-        max-width: 960px;
+        // max-width: 960px;
+        max-width: 1080px;
         padding-top: 2.5rem;
     }
 
@@ -165,8 +166,10 @@ img {
     padding: 0.5rem;
 
     @include breakpoint(medium) {
-        margin-left: 22rem;
-        margin-right: 4rem;
+        // margin-left: 22rem;
+        margin-left: 18rem;
+        // margin-right: 4rem;
+        margin-right: 3rem;
     }
 
     .index-intro {
@@ -248,7 +251,8 @@ img {
 
     @include breakpoint(medium) {
         max-width: 30rem;
-        margin-top: 5rem;
+        // margin-top: 5rem;
+        margin-top: 3rem;
     }
 
     @include mobile-only {
@@ -303,7 +307,8 @@ img {
     }
 
     @include breakpoint(medium) {
-        width: 18rem;
+        // width: 18rem;
+        width: 15rem;
         height: 100%;
         min-height: 100%;
     }
@@ -510,7 +515,8 @@ img {
 
     @include breakpoint(medium) {
         max-width: 33rem;
-        margin-top: 5rem;
+        // margin-top: 5rem;
+        // margin-top: 5rem;
     }
 
     @include mobile-only {
