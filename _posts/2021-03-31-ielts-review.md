@@ -1,7 +1,7 @@
 ---
 title: 非典型雅思首考上岸经验贴
 categories: [learn]
-comments: true
+comment: false
 ---
 
 [![cFBDKJ.png](https://z3.ax1x.com/2021/03/30/cFBDKJ.png)](https://imgtu.com/i/cFBDKJ)

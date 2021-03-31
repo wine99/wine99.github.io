@@ -10,7 +10,7 @@ url: http://starry99.github.io # the base hostname & protocol for your site
 permalink: /:year-:month/:title
 timezone:
 
-# favicon: /assets/img/favicon.ico
+favicon: /assets/img/favicon.ico
 
 google_analytics: #UA—XXXXXXXX-X
 disqus_shortname: #disqus shortname
@@ -33,10 +33,10 @@ defaults:
       type: posts
     values:
       layout: post
-      comment: true   
+      comment: false
 
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
-markdown: kramdown 
+markdown: kramdown
 
 # Filtering Content
 show_drafts: null

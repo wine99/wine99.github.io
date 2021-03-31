@@ -112,7 +112,7 @@ body {
     font-weight: normal;
     font-style: normal;
     // font-family: -apple-system, BlinkMacSystemFont, 'Titillium Web', "Segoe UI", Roboto, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: 'Noto Serif', 'Noto Serif CJK SC', 'Noto Serif CJK', 'Source Han Serif SC', ‘Source Han Serif’, source-han-serif-sc, serif;
     margin: 0;
     padding: 0;
     background-color: var(--bg_color);
@@ -193,6 +193,10 @@ img {
         margin-top: 2rem;
         margin-left: 1rem;
         margin-right: 1rem;
+    }
+
+    .post_content {
+        padding-top: 0;
     }
 }
 
@@ -521,13 +525,19 @@ img {
     @include breakpoint(medium) {
         max-width: 33rem;
         // margin-top: 5rem;
-        // margin-top: 5rem;
     }
 
     @include mobile-only {
         margin-top: 2rem;
         margin-left: 1rem;
         margin-right: 1rem;
+    }
+
+    .player {
+        width: 80%;
+        @include mobile-only {
+            width: 100%;
+        }
     }
 }
 
@@ -545,7 +555,8 @@ img {
 
 .post_data {
     margin-top: -0.5rem;
-    margin-bottom: 3.5rem;
+    // margin-bottom: 3.5rem;
+    margin-bottom: 1rem;
 
     @include mobile-only {
         text-align: center;
@@ -574,6 +585,7 @@ img {
 }
 
 .post_content {
+    padding-top: 2rem;
     font-size: 0.95rem;
     line-height: 1.5rem;
     color: var(--post_text);

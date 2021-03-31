@@ -20,6 +20,11 @@ layout: page
     </span>
     {% endif %}
   </div>
+
+  {% if page.music %}
+  <iframe class="player" frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id={{ page.music }}&auto=0&height=66"></iframe>
+  {% endif %}
+
   <div class="post_content">
     {{ content }}
   </div>
