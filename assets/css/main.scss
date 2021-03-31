@@ -523,10 +523,10 @@ img {
 .post {
     color: var(--post_text);
 
-    @include breakpoint(medium) {
-        max-width: 33rem;
-        // margin-top: 5rem;
-    }
+    // @include breakpoint(medium) {
+    //     max-width: 33rem;
+    //     margin-top: 5rem;
+    // }
 
     @include mobile-only {
         margin-top: 2rem;
