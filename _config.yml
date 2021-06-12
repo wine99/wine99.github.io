@@ -20,7 +20,7 @@ user:
   # pic: /assets/img/cat.jpg
   # picAlt: "catbook"
   # job: a category-centric theme
-  aboutme: true # comment this out if you don't need the 'about' page.
+  aboutme: true # comment this out if you don't need the 'about' page. This has been changed to learning plan!
 
 exclude:
   - README.md
