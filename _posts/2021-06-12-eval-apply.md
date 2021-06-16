@@ -100,15 +100,15 @@ comment: false
 
 为了弄清发生了什么，我给 `eval` 和 `apply` 加上了打印语句，再次运行。
 
-[![25Y4MQ.png](https://z3.ax1x.com/2021/06/12/25Y4MQ.png)](https://imgtu.com/i/25Y4MQ)
+![eval_apply_1.png](https://gitee.com/wine99/pics/raw/master/2021/06/eval_apply_1.png)
 
 第二个被 `eval` 的表达式居然是 `(lambda () (+ a 1))`？难道说 MIT-Scheme 对 operands 的求值顺序是从右向左的吗？如果是的话，那么对于原始的 `let` 形式的代码，`eval` 的顺序的确是 `(let ...)`，`(+ a (b))`，`(b)`，`b`。
 
 继续试验，我分别用 MIT-Scheme 和 DrRacket 运行了如下代码。
 
-[![25Y5rj.png](https://z3.ax1x.com/2021/06/12/25Y5rj.png)](https://imgtu.com/i/25Y5rj)
+![eval_apply_2.png](https://gitee.com/wine99/pics/raw/master/2021/06/eval_apply_2.png)
 
-[![25Yfxg.png](https://z3.ax1x.com/2021/06/12/25Yfxg.png)](https://imgtu.com/i/25Yfxg)
+![eval_apply_3.png](https://gitee.com/wine99/pics/raw/master/2021/06/eval_apply_3.png)
 
 到这里可以确定 MIT-Scheme 对 operands 的求值顺序是从右向左的了。Hmm，奇怪的 MIT-Scheme。不过，R5RS 的确没有规定不能这样做。想想也确实不应该对此作出规定，毕竟如果没有副作用，**"Substitution Model"** 的代换顺序并不会影响结果。
 

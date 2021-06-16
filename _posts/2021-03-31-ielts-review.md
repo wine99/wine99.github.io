@@ -4,7 +4,7 @@ categories: [learn]
 comment: false
 ---
 
-[![cFBDKJ.png](https://z3.ax1x.com/2021/03/30/cFBDKJ.png)](https://imgtu.com/i/cFBDKJ)
+![ielts_review_1.png](https://gitee.com/wine99/pics/raw/master/2021/03/ielts_review_1.png)
 
 ## 刚开始制定的计划
 
