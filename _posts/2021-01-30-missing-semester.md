@@ -44,7 +44,7 @@ open: Permission denied
 明白这一点后，我们可以这样操作：
 
 ```bash
-$ echo 3 | sudo tee brightness 
+$ echo 3 | sudo tee brightness
 ```
 
 因为打开 `/sys` 文件的是 `tee` 这个程序，并且该程序以 `root` 权限在运行，因此操作可以进行。
@@ -111,7 +111,7 @@ diff <(ls foo) <(ls bar)
 ```python
 #!/usr/local/bin/python import sys
 for arg in reversed(sys.argv[1:]):
-    print(arg) 
+    print(arg)
 ```
 
 shell知道去用python解释器而不是shell命令来运行这段脚本，是因为脚本的开头第一行的 [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))。
@@ -387,7 +387,7 @@ ssh myserver journalctl
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [0-9.]+ port [0-9]+( [preauth])?$/2/'
  | sort | uniq -c
  | sort -nk1,1 | tail -n10
- | awk '{print $2}' | paste -sd, 
+ | awk '{print $2}' | paste -sd,
 ```
 
 `sort -n` 会按照数字顺序对输入进行排序（默认情况下是按照字典序排序 `-k1,1` 则表示“仅基于以空格分割的第一列进行排序”。`,n` 部分表示“仅排序到第n个部分”，默认情况是到行尾。就本例来说，针对整个行进行排序也没有任何问题，我们这里主要是为了学习这一用法！
@@ -405,7 +405,7 @@ ssh myserver journalctl
 再举个例子，让我们统计一下所有以`c` 开头，以 `e` 结尾，并且仅尝试过一次登陆的用户。
 
 ```bash
- | awk '$1 == 1 && $2 ~ /^c[^ ]*e$/ { print $2 }' | wc -l 
+ | awk '$1 == 1 && $2 ~ /^c[^ ]*e$/ { print $2 }' | wc -l
 ```
 
 其中 `wc -l` 统计输出结果的行数。
@@ -415,7 +415,7 @@ ssh myserver journalctl
 ```bash
 BEGIN { rows = 0 }
 $1 == 1 && $2 ~ /^c[^ ]*e$/ { rows += $1 }
-END { print rows } 
+END { print rows }
 ```
 
 `BEGIN` 也是一种模式，它会匹配输入的开头（ `END` 则匹配结尾）。然后，对每一行第一个部分进行累加，最后将结果输出。
@@ -425,13 +425,13 @@ END { print rows }
 bc (Berkeley Calculator) 是一个命令行计算器。例如这样，可以将每行的数字加起来：
 
 ```bash
- | paste -sd+ | bc -l 
+ | paste -sd+ | bc -l
 ```
 
 下面这种更加复杂的表达式也可以：
 
 ```bash
-echo "2*($(data | paste -sd+))" | bc -l 
+echo "2*($(data | paste -sd+))" | bc -l
 ```
 
 ### Shell 命令中的 `-`
@@ -442,7 +442,7 @@ echo "2*($(data | paste -sd+))" | bc -l
 ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
  | convert - -colorspace gray -
  | gzip
- | ssh mymachine 'gzip -d | tee copy.jpg | env DISPLAY=:0 feh -' 
+ | ssh mymachine 'gzip -d | tee copy.jpg | env DISPLAY=:0 feh -'
 ```
 
 其中 `-frames 1` 为第一帧画面，`-f image2` 将结果保存为图片而不是视频格式。
@@ -557,7 +557,7 @@ shell 会使用 UNIX 提供的信号机制执行进程间通信。当一个进�
     *   Can result in orphaned child processes
 *   `SIGSTOP`: pause a process
     *   `SIGTSTP`: `^Z`; terminal stop
-*   `SIGHUP`: terminal line hangup; terminate process; will be sent when terminal is closed    
+*   `SIGHUP`: terminal line hangup; terminate process; will be sent when terminal is closed
     *   Use `nohup` to avoid
 *   `SIGTERM`: signal requesting graceful process exit
     *   To send this signal: `kill -TERM <pid>`
@@ -576,7 +576,7 @@ i = 0
 while True:
     time.sleep(.1)
     print("r{}".format(i), end="")
-    i += 1 
+    i += 1
 ```
 
 ```
@@ -639,7 +639,7 @@ $ jobs
 $ kill %2
 [2]  + 18745 terminated  nohup sleep 2000
 
-$ jobs 
+$ jobs
 
 ```
 
@@ -687,7 +687,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias mkdir="mkdir -p"
 
-# To ignore an alias run it prepended with 
+# To ignore an alias run it prepended with
 \ls
 # Or disable an alias altogether with unalias
 unalias la
@@ -733,7 +733,7 @@ fi
 
 ```bash
 # 连接设备
-ssh foo@bar.mit.edu 
+ssh foo@bar.mit.edu
 ssh foobar@192.168.1.42
 # 如果存在配置文件，可以简写
 ssh bar
@@ -760,7 +760,7 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 `ssh` 会查询 `.ssh/authorized_keys` 来确认那些用户可以被允许登录。您可以通过下面的命令将一个公钥拷贝到这里：
 
 ```bash
-cat .ssh/id_ed25519.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys' 
+cat .ssh/id_ed25519.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys'
 ```
 
 如果支持 `ssh-copy-id` 的话，可以使用下面这种更简单的解决方案：
@@ -799,7 +799,7 @@ Host vm
 
 # 在配置文件中也可以使用通配符
 Host *.mit.edu
-    User foobaz 
+    User foobaz
 ```
 
 服务器侧的配置通常放在 `/etc/ssh/sshd_config`。您可以在这里配置免密认证、修改 shh 端口、开启 X11 转发等等。也可以为每个用户单独指定配置。
@@ -850,7 +850,7 @@ $ sleep 1000
 ^Z
 [1]  + 689 suspended  sleep 1000
 
-$ sleep 2000                                                                   
+$ sleep 2000
 ^Z
 [2]  + 697 suspended  sleep 2000
 
@@ -965,7 +965,7 @@ def load(id):
 
 ```
 100644 blob 4448adbf7ecd394f42ae135bbeed9676e894af85    baz.txt
-040000 tree c68d233a33c5c06e0340e4c224f0afca87c8ce87    foo 
+040000 tree c68d233a33c5c06e0340e4c224f0afca87c8ce87    foo
 ```
 
 而 `git cat-file -p 4448adb`（ 4448adb 是baz.txt 的哈希值的一部分前缀）的结果即为 baz.txte 的内容。
