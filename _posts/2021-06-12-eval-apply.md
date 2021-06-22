@@ -199,3 +199,97 @@ comment: false
 
 虽然人不能踏进同一条河流两次，却能掉进同一个坑两次，为了避免自己第三次落入这个 Environment Model 的小陷阱，我写下了这篇笔记。其实理解这个最简单的 eval-apply 的过程并不困难，但是我知道，我还只是和这个计算机中的精灵见了个面，并没有真正地认识她。继续学习吧，为了成为 one of "The Grand Wizard"！
 
+## 06-22 更新
+
+在教材 5.5 节中找到了为什么 MIT-Scheme 的 operands 求值顺序是从右到左的可能原因。
+
+以下是原文。
+
+```scheme
+(define (compile-application
+         exp target linkage)
+  (let ((proc-code
+         (compile (operator exp) 'proc 'next))
+        (operand-codes
+         (map (lambda (operand)
+                (compile operand 'val 'next))
+              (operands exp))))
+    (preserving
+     '(env continue)
+     proc-code
+     (preserving
+      '(proc continue)
+      (construct-arglist operand-codes)
+      (compile-procedure-call
+       target
+       linkage)))))
+```
+
+The code to construct the argument list will evaluate each operand into val and then cons that value onto the argument list being accumulated in argl. Since we cons the arguments onto argl in sequence, we must start with the last argument and end with the first, so that the arguments will appear in order from first to last in the resulting list. Rather than waste an instruction by initializing argl to the empty list to set up for this sequence of evaluations, we make the first code sequence construct the initial argl. The general form of the argument-list construction is thus as follows:
+
+```
+⟨compilation of last operand, targeted to val⟩
+(assign argl (op list) (reg val))
+⟨compilation of next operand, targeted to val⟩
+(assign argl (op cons) (reg val) (reg argl))
+…
+⟨compilation of first operand, targeted to val⟩
+(assign argl (op cons) (reg val) (reg argl))
+```
+
+Argl must be preserved around each operand evaluation except the first (so that arguments accumulated so far won’t be lost), and env must be preserved around each operand evaluation except the last (for use by subsequent operand evaluations).
+
+Compiling this argument code is a bit tricky, because of the special treatment of the first operand to be evaluated and the need to preserve argl and env in different places. The construct-arglist procedure takes as arguments the code that evaluates the individual operands. If there are no operands at all, it simply emits the instruction
+
+```scheme
+(assign argl (const ()))
+```
+
+Otherwise, construct-arglist creates code that initializes argl with the last argument, and appends code that evaluates the rest of the arguments and adjoins them to argl in succession. In order to process the arguments from last to first, we must reverse the list of operand code sequences from the order supplied by compile-application.
+
+```scheme
+(define (construct-arglist operand-codes)
+  (let ((operand-codes
+         (reverse operand-codes)))
+    (if (null? operand-codes)
+        (make-instruction-sequence
+         '()
+         '(argl)
+         '((assign argl (const ()))))
+        (let ((code-to-get-last-arg
+               (append-instruction-sequences
+                (car operand-codes)
+                (make-instruction-sequence
+                 '(val)
+                 '(argl)
+                 '((assign argl
+                           (op list)
+                           (reg val)))))))
+          (if (null? (cdr operand-codes))
+              code-to-get-last-arg
+              (preserving
+               '(env)
+               code-to-get-last-arg
+               (code-to-get-rest-args
+                (cdr operand-codes))))))))
+
+(define (code-to-get-rest-args operand-codes)
+  (let ((code-for-next-arg
+         (preserving
+          '(argl)
+          (car operand-codes)
+          (make-instruction-sequence
+           '(val argl)
+           '(argl)
+           '((assign argl
+                     (op cons)
+                     (reg val)
+                     (reg argl)))))))
+    (if (null? (cdr operand-codes))
+        code-for-next-arg
+        (preserving
+         '(env)
+         code-for-next-arg
+         (code-to-get-rest-args
+          (cdr operand-codes))))))
+```

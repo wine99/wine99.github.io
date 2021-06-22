@@ -39,7 +39,7 @@ markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 markdown: kramdown
 
 # Filtering Content
-show_drafts: null
+show_drafts: false
 limit_posts: 0
 future:      false
 unpublished: false
