@@ -256,7 +256,7 @@ img {
     }
 
     @include breakpoint(medium) {
-        max-width: 30rem;
+        // max-width: 30rem;
         // margin-top: 5rem;
         margin-top: 3rem;
     }
